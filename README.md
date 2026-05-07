@@ -1,5 +1,7 @@
 # @melis-ai/x402-tools-mcp
 
+[![npm version](https://img.shields.io/npm/v/@melis-ai/x402-tools-mcp.svg)](https://www.npmjs.com/package/@melis-ai/x402-tools-mcp)
+
 Boring infrastructure for agent builders. 16 pay-per-call utility tools served as an MCP server — scrape, validate, notify, convert, synthesise. No subscriptions, no API keys. Pay with USDC on Base via the [x402 protocol](https://x402.org).
 
 ```bash
