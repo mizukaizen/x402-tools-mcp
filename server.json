@@ -1,0 +1,36 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.mizukaizen/x402-tools-mcp",
+  "description": "16 x402 pay-per-call tools: scrape, validate, notify, convert, synthesise. USDC on Base.",
+  "repository": {
+    "url": "https://github.com/mizukaizen/x402-tools-mcp",
+    "source": "github"
+  },
+  "version": "0.1.1",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@melis-ai/x402-tools-mcp",
+      "version": "0.1.1",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "X402_PAYMENT_HEADER",
+          "description": "Signed x402 payment token from your wallet client. Set if handling payments manually.",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": true
+        },
+        {
+          "name": "X402_INTERNAL_KEY",
+          "description": "Bypass key for trusted internal callers — skips x402 payment flow entirely.",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}

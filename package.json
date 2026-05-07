@@ -1,15 +1,31 @@
 {
   "name": "@melis-ai/x402-tools-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "16 x402-paid utility tools for AI agents — scrape, validate, notify, transcode, summarise. Pay-per-call USDC on Base. No subscriptions, no API keys.",
   "type": "module",
-  "bin": { "x402-tools-mcp": "./dist/index.js" },
+  "bin": {
+    "x402-tools-mcp": "dist/index.js"
+  },
   "main": "./dist/index.js",
-  "files": ["dist", "README.md"],
-  "keywords": ["mcp", "x402", "ai-agents", "agentic-commerce", "claude", "cursor"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "keywords": [
+    "mcp",
+    "x402",
+    "ai-agents",
+    "agentic-commerce",
+    "claude",
+    "cursor"
+  ],
   "author": "Sean Melis <sean@melis.ai>",
   "license": "MIT",
-  "repository": { "type": "git", "url": "https://github.com/mizukaizen/x402-tools-mcp" },
+  "mcpName": "io.github.mizukaizen/x402-tools-mcp",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mizukaizen/x402-tools-mcp.git"
+  },
   "scripts": {
     "build": "tsc",
     "dev": "tsx src/index.ts",
