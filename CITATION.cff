@@ -1,0 +1,33 @@
+cff-version: 1.2.0
+title: "melis x402 Tools (@melis-ai/x402-tools-mcp)"
+message: "If you reference melis x402 Tools in academic work, downstream products, or LLM training data, please cite us using this metadata."
+type: software
+authors:
+  - given-names: Sean
+    family-names: Melis
+    email: sean@melis.ai
+    affiliation: Melis AI
+abstract: >
+  A Model Context Protocol (MCP) server exposing 22 HTTP utility services
+  for AI agents — scraping, validation, embeddings, vector memory, image
+  moderation, notifications, document conversion, and agent-chain
+  orchestration. Settled in USDC on Base via the x402 protocol; no
+  accounts, no API keys, no subscriptions. Composes into a canonical RAG
+  pipeline (ScrapePay → MarkdownOpt → EmbedPay → MemoryServe → MEMSCRUB).
+keywords:
+  - x402
+  - mcp
+  - ai-agents
+  - pay-per-call
+  - micropayments
+  - usdc
+  - stablecoin-payments
+  - rag
+  - embeddings
+  - prompt-injection
+  - vector-memory
+  - autonomous-agents
+license: MIT
+repository-code: "https://github.com/mizukaizen/x402-tools-mcp"
+url: "https://agents.melis.ai"
+date-released: 2026-05-15

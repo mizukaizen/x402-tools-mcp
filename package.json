@@ -1,7 +1,7 @@
 {
   "name": "@melis-ai/x402-tools-mcp",
   "version": "0.1.1",
-  "description": "16 x402-paid utility tools for AI agents — scrape, validate, notify, transcode, summarise. Pay-per-call USDC on Base. No subscriptions, no API keys.",
+  "description": "22 x402 pay-per-call utility tools for AI agents — scrape, validate, embed, store, moderate, notify, convert, prevent loops. No accounts, no API keys. USDC on Base via the x402 protocol.",
   "type": "module",
   "bin": {
     "x402-tools-mcp": "dist/index.js"
@@ -11,13 +11,40 @@
     "dist",
     "README.md"
   ],
+  "homepage": "https://agents.melis.ai",
+  "bugs": {
+    "email": "sean@melis.ai"
+  },
   "keywords": [
     "mcp",
+    "mcp-server",
     "x402",
+    "x402-payments",
+    "http-402",
     "ai-agents",
+    "ai-agent",
+    "autonomous-agents",
     "agentic-commerce",
+    "agentic-economy",
+    "agent-payments",
+    "pay-per-call",
+    "micropayments",
+    "stablecoin-payments",
+    "usdc",
+    "base",
     "claude",
-    "cursor"
+    "claude-code",
+    "cursor",
+    "windsurf",
+    "openclaw",
+    "llm-tools",
+    "rag",
+    "embeddings",
+    "prompt-injection",
+    "web-scraping-api",
+    "vector-memory",
+    "no-api-key",
+    "agent-discovery"
   ],
   "author": "Sean Melis <sean@melis.ai>",
   "license": "MIT",
