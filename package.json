@@ -1,6 +1,6 @@
 {
   "name": "@melis-ai/x402-tools-mcp",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "22 x402 pay-per-call utility tools for AI agents — scrape, validate, embed, store, moderate, notify, convert, prevent loops. No accounts, no API keys. USDC on Base via the x402 protocol.",
   "type": "module",
   "bin": {
