@@ -1,0 +1,91 @@
+name: Release
+
+# Triggers on any pushed tag matching v*.*.* (e.g. v0.2.0, v1.0.0-rc1)
+# Auto-publishes to npm (OIDC trusted publisher — no NPM_TOKEN needed)
+# Then re-publishes server.json to the MCP Registry (requires MCP_REGISTRY_TOKEN secret).
+#
+# Sean's release one-liner after this is merged:
+#   npm version patch && git push origin main --tags
+#
+# That triggers a tag push, this workflow runs, npm + MCP Registry both get the
+# new version automatically. No further auth required at release time.
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: read
+  id-token: write  # required for npm OIDC trusted publishing
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node 22
+        uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build TypeScript
+        run: npm run build
+
+      - name: Verify version matches tag
+        run: |
+          PKG_VERSION=$(node -p "require('./package.json').version")
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
+          if [ "$PKG_VERSION" != "$TAG_VERSION" ]; then
+            echo "::error::package.json version ($PKG_VERSION) does not match tag ($TAG_VERSION)"
+            exit 1
+          fi
+          echo "Version: $PKG_VERSION (matches tag)"
+
+      - name: Publish to npm (OIDC)
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          # Note: OIDC trusted publishing requires the package to be configured
+          # at npmjs.com/package/@melis-ai/x402-tools-mcp → Settings → Trusted Publishers.
+          # Until that's configured, the NPM_TOKEN secret is the fallback.
+
+      - name: Sync server.json packages.version to release
+        run: |
+          # The MCP Registry's packages[0].version must match the npm version we just shipped.
+          # Bump it inline so the next mcp-publisher publish picks it up.
+          PKG_VERSION=$(node -p "require('./package.json').version")
+          # Use python for safe in-place JSON edit
+          python3 -c "
+          import json
+          d = json.load(open('server.json'))
+          d['version'] = '$PKG_VERSION'
+          for p in d.get('packages', []):
+              p['version'] = '$PKG_VERSION'
+          json.dump(d, open('server.json', 'w'), indent=2)
+          open('server.json', 'a').write('\n')
+          "
+
+      - name: Install mcp-publisher
+        run: |
+          curl -fsSL https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_linux_amd64.tar.gz \
+            | sudo tar xz -C /usr/local/bin mcp-publisher
+
+      - name: Login to MCP Registry via OIDC
+        # The Registry accepts GitHub Actions OIDC tokens — no manual token rotation needed.
+        run: mcp-publisher login github-oidc
+
+      - name: Publish to MCP Registry
+        run: mcp-publisher publish
+
+      - name: Done
+        run: |
+          echo "::notice::Released ${GITHUB_REF_NAME}: npm @melis-ai/x402-tools-mcp + MCP Registry both updated."
