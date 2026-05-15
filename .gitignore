@@ -2,3 +2,6 @@ node_modules/
 dist/
 *.tsbuildinfo
 .env
+
+# MCP Registry secrets — never commit
+.mcpregistry_*_token
